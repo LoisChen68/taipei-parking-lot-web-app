@@ -1,0 +1,72 @@
+.bar {
+  position: relative;
+  background-color: white;
+  border-radius: 8px;
+  box-sizing: border-box;
+  bottom: -50px;
+  left: 10px;
+  width: 392px;
+  height: 50px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 20%), 0 -1px 0px rgb(0 0 0 / 2%);
+  transition-duration: 0.5s;
+}
+
+.hamburger {
+  display: none;
+  position: relative;
+  top: 5px;
+  color: #00c300;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 10px;
+}
+
+.search-bar input {
+  background: transparent;
+  flex: 1;
+  border: 0;
+  outline: none;
+  font-size: 20px;
+}
+
+.combobox-input {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.logo {
+  display: none;
+  position: absolute;
+  right: 35px;
+  width: 100px;
+  bottom: 11px;
+}
+
+.icon {
+  position: relative;
+  bottom: 2px;
+}
+
+.set {
+  display: flex;
+}
+
+@media (max-width: 767px) {
+  .search-bar input {
+    width: 180px;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .bar {
+    width: 380px;
+    border-radius: 30px;
+    left: calc(50vw - 190px);
+  }
+}

@@ -8,13 +8,13 @@ import {
   GoogleMap,
   LoadScriptProps,
   Marker,
-  MarkerClusterer,
 } from '@react-google-maps/api'
 import { useState, useCallback, useMemo, useRef, useEffect } from 'react'
 import Card from '../Card/Card'
 import positionIcon from '../../assets/position.svg'
 import marker from '../../assets/marker.svg'
 import { twd97_to_latlng } from '../../TWD97'
+import SearchBar from '../SearchBar/SearchBar'
 
 type LatLngLiteral = google.maps.LatLngLiteral
 type MapOptions = google.maps.MapOptions
@@ -40,6 +40,10 @@ export default function MapBox() {
   })
   const [zoom] = useState(15)
   const [position, setPosition] = useState<LatLngLiteral>({ lat: 0, lng: 0 })
+  const [searchPosition, setSearchPosition] = useState<LatLngLiteral>({
+    lat: 0,
+    lng: 0,
+  })
   const [activeMarker, setActiveMarker] = useState(null)
   const [park, setPark] = useState([])
   const [libraries] = useState<LoadScriptProps['libraries']>(['places'])
@@ -157,6 +161,12 @@ export default function MapBox() {
                 )}
               </Marker>
             ))}
+          <SearchBar
+            setPlace={(position) => {
+              setSearchPosition(position)
+              mapRef.current?.panTo(position)
+            }}
+          />
         </GoogleMap>
       </div>
     </>
