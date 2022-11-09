@@ -1,3 +1,8 @@
+/*!
+* tabbable 5.3.3
+* @license MIT, https://github.com/focus-trap/tabbable/blob/master/LICENSE
+*/
+
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -14,6 +19,50 @@ PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 
 /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
+
+/**
+  * @reach/auto-id v0.18.0
+  *
+  * Copyright (c) 2018-2022, React Training LLC
+  *
+  * This source code is licensed under the MIT license found in the
+  * LICENSE.md file in the root directory of this source tree.
+  *
+  * @license MIT
+  */
+
+/**
+  * @reach/combobox v0.18.0
+  *
+  * Copyright (c) 2018-2022, React Training LLC
+  *
+  * This source code is licensed under the MIT license found in the
+  * LICENSE.md file in the root directory of this source tree.
+  *
+  * @license MIT
+  */
+
+/**
+  * @reach/descendants v0.18.0
+  *
+  * Copyright (c) 2018-2022, React Training LLC
+  *
+  * This source code is licensed under the MIT license found in the
+  * LICENSE.md file in the root directory of this source tree.
+  *
+  * @license MIT
+  */
+
+/**
+  * @reach/portal v0.18.0
+  *
+  * Copyright (c) 2018-2022, React Training LLC
+  *
+  * This source code is licensed under the MIT license found in the
+  * LICENSE.md file in the root directory of this source tree.
+  *
+  * @license MIT
+  */
 
 /**
  * @license React
