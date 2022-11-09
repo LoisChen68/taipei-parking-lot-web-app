@@ -1,5 +1,5 @@
 import {screen, render} from '@testing-library/react'
-import MapBox from '../components/Map'
+import MapBox from '../components/Map/Map'
 import * as ReactGoogleMapApi from '@react-google-maps/api'
 
 

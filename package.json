@@ -4,6 +4,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.2.0",
+    "@fortawesome/free-regular-svg-icons": "^6.2.0",
+    "@fortawesome/free-solid-svg-icons": "^6.2.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@react-google-maps/api": "^2.16.0",
     "@react-google-maps/marker-clusterer": "^2.16.1",
     "@testing-library/jest-dom": "^5.16.5",

@@ -1,5 +1,5 @@
 import './App.css'
-import MapBox from './components/Map'
+import MapBox from './components/Map/Map'
 
 function App() {
   return (

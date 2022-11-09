@@ -1,10 +1,11 @@
 import style from './Map.module.css'
-import {API_TAIPEI_PARKING_LOT, API_TAIPEI_PARKING_SPACE} from '../global/constants'
+import {API_TAIPEI_PARKING_LOT, API_TAIPEI_PARKING_SPACE} from '../../global/constants'
 import {useJsApiLoader, GoogleMap, LoadScriptProps, Marker, MarkerClusterer} from '@react-google-maps/api'
 import {useState, useCallback, useMemo, useRef, useEffect} from 'react';
-import positionIcon from '../assets/position.svg'
-import marker from '../assets/marker.svg'
-import {twd97_to_latlng} from '../TWD97'
+import Card from '../Card/Card'
+import positionIcon from '../../assets/position.svg'
+import marker from '../../assets/marker.svg'
+import {twd97_to_latlng} from '../../TWD97'
 
 type LatLngLiteral = google.maps.LatLngLiteral
 type MapOptions = google.maps.MapOptions
@@ -24,9 +25,11 @@ interface parkItem {
 
 
 export default function MapBox() {
+  const googleDirApiUrl = 'https://www.google.com/maps/dir/?api=1&destination='
   const [center, setCenter] = useState<LatLngLiteral>({lat: 25.0476133, lng: 121.5174062})
   const [zoom] = useState(15)
   const [position, setPosition] = useState<LatLngLiteral>({lat: 0, lng: 0})
+  const [activeMarker, setActiveMarker] = useState(null)
   const [park, setPark] = useState([])
   const [libraries] = useState<LoadScriptProps['libraries']>(['places'])
   const options = useMemo<MapOptions>(
@@ -40,6 +43,13 @@ export default function MapBox() {
   );
   const onLoad = useCallback((map: any) => (mapRef.current = map), []);
   const mapRef = useRef<GoogleMap>();
+
+  const handleActiveMarker = (marker: null) => {
+    if (marker === activeMarker) {
+      return
+    }
+    setActiveMarker(marker)
+  }
 
   const {isLoaded} = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY || '',
@@ -120,9 +130,25 @@ export default function MapBox() {
                 position={data.lanLng}
                 label={data.parkingSpace?.availablecar.toString()}
                 icon={marker}
+                onClick={() => {
+                  handleActiveMarker(data.id)
+                  mapRef.current?.panTo(data.lanLng)
+                }}
               >
+                {activeMarker === data.id && (
+                  <Card
+                    onCloseClick={() => setActiveMarker(null)}
+                    name={data.name}
+                    address={data.address}
+                    payex={data.payex}
+                    carSpace={data.parkingSpace?.availablecar}
+                    motorSpace={data.parkingSpace?.availablemotor}
+                    update={data.parkingSpaceUpdate}
+                    href={googleDirApiUrl + `${data.area}${data.name}`} />
+                )}
               </Marker>
             )}
+
         </GoogleMap>
       </div>
     </>
