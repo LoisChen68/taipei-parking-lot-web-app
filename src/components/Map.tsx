@@ -1,13 +1,15 @@
 import style from './Map.module.css'
-import {useJsApiLoader, GoogleMap, LoadScriptProps} from '@react-google-maps/api'
-import {useState, useCallback, useMemo, useRef} from 'react';
+import {useJsApiLoader, GoogleMap, LoadScriptProps, Marker} from '@react-google-maps/api'
+import {useState, useCallback, useMemo, useRef, useEffect} from 'react';
+import positionIcon from '../assets/position.svg'
 
 type LatLngLiteral = google.maps.LatLngLiteral
 type MapOptions = google.maps.MapOptions
 
 export default function MapBox() {
-  const [center] = useState<LatLngLiteral>({lat: 25.0476133, lng: 121.5174062})
+  const [center, setCenter] = useState<LatLngLiteral>({lat: 25.0476133, lng: 121.5174062})
   const [zoom] = useState(15)
+  const [position, setPosition] = useState<LatLngLiteral>({lat: 0, lng: 0})
   const [libraries] = useState<LoadScriptProps['libraries']>(['places'])
   const options = useMemo<MapOptions>(
     () => ({
@@ -26,6 +28,26 @@ export default function MapBox() {
     libraries
   })
 
+  // user position
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(position => {
+      setCenter({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      })
+    })
+  }, [])
+
+  // user watchPosition
+  useEffect(() => {
+    navigator.geolocation.watchPosition(position => {
+      setPosition({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      })
+    })
+  }, [])
+
   if (!isLoaded) return <div>Loading...</div>
 
   return isLoaded ? (
@@ -38,6 +60,11 @@ export default function MapBox() {
           options={options}
           onLoad={onLoad}
         >
+          {/* user Marker */}
+          <Marker
+            position={position}
+            icon={positionIcon}
+          />
         </GoogleMap>
       </div>
     </>
