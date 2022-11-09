@@ -60,7 +60,7 @@
   opacity: 1;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .card {
     bottom: 0px;
     left: 0px;
@@ -69,6 +69,19 @@
   }
 
   .close {
-    left: 480px;
+    left: calc(118vw - 190px);
+  }
+}
+
+@media (max-width: 390px) {
+  .card {
+    bottom: 0px;
+    width: auto;
+    padding: 16px 24px 20px;
+    height: auto;
+  }
+
+  .close {
+    left: calc(140vw - 190px);
   }
 }

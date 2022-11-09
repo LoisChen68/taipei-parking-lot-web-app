@@ -15,6 +15,7 @@ import positionIcon from '../../assets/position.svg'
 import marker from '../../assets/marker.svg'
 import { twd97_to_latlng } from '../../TWD97'
 import SearchBar from '../SearchBar/SearchBar'
+import FilterButton from '../FilterButton/FilterButton'
 
 type LatLngLiteral = google.maps.LatLngLiteral
 type MapOptions = google.maps.MapOptions
@@ -44,6 +45,7 @@ export default function MapBox() {
     lat: 0,
     lng: 0,
   })
+  const [filter, setFilter] = useState('')
   const [activeMarker, setActiveMarker] = useState(null)
   const [park, setPark] = useState([])
   const [libraries] = useState<LoadScriptProps['libraries']>(['places'])
@@ -65,6 +67,111 @@ export default function MapBox() {
     }
     setActiveMarker(marker)
   }
+
+  const allSpace =
+    filter === '' &&
+    park
+      .filter(
+        (data: any) =>
+          data.parkingSpace !== undefined &&
+          data.parkingSpace?.availablecar > 0 &&
+          data.parkingSpace?.availablemotor > 0
+      )
+      .map((data: any) => (
+        <Marker
+          key={data.id}
+          position={data.lanLng}
+          label={data.parkingSpace?.availablecar.toString()}
+          icon={marker}
+          onClick={() => {
+            handleActiveMarker(data.id)
+            mapRef.current?.panTo(data.lanLng)
+          }}
+        >
+          {activeMarker === data.id && (
+            <Card
+              onCloseClick={() => setActiveMarker(null)}
+              name={data.name}
+              address={data.address}
+              payex={data.payex}
+              carSpace={data.parkingSpace?.availablecar}
+              motorSpace={data.parkingSpace?.availablemotor}
+              update={data.parkingSpaceUpdate}
+              href={googleDirApiUrl + `${data.area}${data.name}`}
+            />
+          )}
+        </Marker>
+      ))
+
+  const carSpace =
+    filter === 'car' &&
+    park
+      .filter(
+        (data: any) =>
+          data.totalcar > 0 &&
+          data.parkingSpace !== undefined &&
+          data.parkingSpace?.availablecar > 0
+      )
+      .map((data: any) => (
+        <Marker
+          key={data.id}
+          position={data.lanLng}
+          label={data.parkingSpace?.availablecar.toString()}
+          icon={marker}
+          onClick={() => {
+            handleActiveMarker(data.id)
+            mapRef.current?.panTo(data.lanLng)
+          }}
+        >
+          {activeMarker === data.id && (
+            <Card
+              onCloseClick={() => setActiveMarker(null)}
+              name={data.name}
+              address={data.address}
+              payex={data.payex}
+              carSpace={data.parkingSpace?.availablecar}
+              motorSpace={data.parkingSpace?.availablemotor}
+              update={data.parkingSpaceUpdate}
+              href={googleDirApiUrl + `${data.area}${data.name}`}
+            />
+          )}
+        </Marker>
+      ))
+
+  const motorSpace =
+    filter === 'motor' &&
+    park
+      .filter(
+        (data: any) =>
+          data.totalcar > 0 &&
+          data.parkingSpace !== undefined &&
+          data.parkingSpace?.availablemotor > 0
+      )
+      .map((data: any) => (
+        <Marker
+          key={data.id}
+          position={data.lanLng}
+          label={data.parkingSpace?.availablemotor.toString()}
+          icon={marker}
+          onClick={() => {
+            handleActiveMarker(data.id)
+            mapRef.current?.panTo(data.lanLng)
+          }}
+        >
+          {activeMarker === data.id && (
+            <Card
+              onCloseClick={() => setActiveMarker(null)}
+              name={data.name}
+              address={data.address}
+              payex={data.payex}
+              carSpace={data.parkingSpace?.availablecar}
+              motorSpace={data.parkingSpace?.availablemotor}
+              update={data.parkingSpaceUpdate}
+              href={googleDirApiUrl + `${data.area}${data.name}`}
+            />
+          )}
+        </Marker>
+      ))
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY || '',
@@ -127,40 +234,16 @@ export default function MapBox() {
           options={options}
           onLoad={onLoad}
         >
+          <FilterButton
+            carClick={() => setFilter('car')}
+            motorClick={() => setFilter('motor')}
+            allClick={() => setFilter('')}
+          />
           {/* user Marker */}
           <Marker position={position} icon={positionIcon} />
-          {park
-            .filter(
-              (data: any) =>
-                (data.parkingSpace !== undefined &&
-                  data.parkingSpace?.availablecar > 0) ||
-                data.parkingSpace?.availablemotor > 0
-            )
-            .map((data: any) => (
-              <Marker
-                key={data.id}
-                position={data.lanLng}
-                label={data.parkingSpace?.availablecar.toString()}
-                icon={marker}
-                onClick={() => {
-                  handleActiveMarker(data.id)
-                  mapRef.current?.panTo(data.lanLng)
-                }}
-              >
-                {activeMarker === data.id && (
-                  <Card
-                    onCloseClick={() => setActiveMarker(null)}
-                    name={data.name}
-                    address={data.address}
-                    payex={data.payex}
-                    carSpace={data.parkingSpace?.availablecar}
-                    motorSpace={data.parkingSpace?.availablemotor}
-                    update={data.parkingSpaceUpdate}
-                    href={googleDirApiUrl + `${data.area}${data.name}`}
-                  />
-                )}
-              </Marker>
-            ))}
+          {allSpace}
+          {carSpace}
+          {motorSpace}
           <SearchBar
             setPlace={(position) => {
               setSearchPosition(position)
