@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/taipei-parking-lot-web-app/static/css/main.2524e473.css",
-    "main.js": "/taipei-parking-lot-web-app/static/js/main.57c4c824.js",
+    "main.js": "/taipei-parking-lot-web-app/static/js/main.88a0a526.js",
     "static/js/787.8bdac07c.chunk.js": "/taipei-parking-lot-web-app/static/js/787.8bdac07c.chunk.js",
     "service-worker.js": "/taipei-parking-lot-web-app/service-worker.js",
     "static/media/position.svg": "/taipei-parking-lot-web-app/static/media/position.1f58a8e44219198658ab14df05ceced2.svg",
     "index.html": "/taipei-parking-lot-web-app/index.html",
     "static/media/marker.svg": "/taipei-parking-lot-web-app/static/media/marker.fdcd70d3df2e7750669df812840154da.svg",
     "main.2524e473.css.map": "/taipei-parking-lot-web-app/static/css/main.2524e473.css.map",
-    "main.57c4c824.js.map": "/taipei-parking-lot-web-app/static/js/main.57c4c824.js.map",
+    "main.88a0a526.js.map": "/taipei-parking-lot-web-app/static/js/main.88a0a526.js.map",
     "787.8bdac07c.chunk.js.map": "/taipei-parking-lot-web-app/static/js/787.8bdac07c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2524e473.css",
-    "static/js/main.57c4c824.js"
+    "static/js/main.88a0a526.js"
   ]
 }
