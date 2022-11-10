@@ -1,9 +1,12 @@
-# Taipei Parking Lot
-<center>
-![icon](./public/icon%40128.png)
-</center>
+<div align="center">
+<br/>
+<img src="./public/icon@128.png">
+<h3>Taipei Parking Lot</h3>
+<h3>The Taipei Park Lot for users who are driving and looking for parking lots in Taipei.<h3>
+<br/>
+<img src="./public/demo/demo.png" width="800px">
+</div>
 
-![demo](./public/demo/demo.png)
 
 ## Introduce
 為身在台北的駕駛提供即時停車資料的網頁式app
