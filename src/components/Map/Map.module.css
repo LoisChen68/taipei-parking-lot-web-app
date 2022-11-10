@@ -2,3 +2,20 @@
   width: 100vw;
   height: 100vh;
 }
+
+.icon {
+  color: #666666;
+}
+
+.back {
+  position: fixed;
+  background-color: white;
+  border-radius: 20px;
+  right: 10px;
+  bottom: 120px;
+  height: 40px;
+  width: 40px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
