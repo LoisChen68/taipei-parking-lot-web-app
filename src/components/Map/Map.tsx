@@ -48,6 +48,8 @@ export default function MapBox() {
     lng: 0,
   })
   const [filter, setFilter] = useState('')
+  const [count, setCount] = useState(0)
+  const [time, setTime] = useState(0)
   const [activeMarker, setActiveMarker] = useState(null)
   const [park, setPark] = useState([])
   const [libraries] = useState<LoadScriptProps['libraries']>(['places'])
@@ -69,6 +71,21 @@ export default function MapBox() {
     }
     setActiveMarker(marker)
   }
+
+  // timer 0 -> 30s
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (time < 30) {
+        setTime((prevState) => prevState + 1)
+      }
+    }, 1000)
+    if (time === 30) {
+      setTime(0)
+    }
+    return () => {
+      clearInterval(timer)
+    }
+  }, [time])
 
   const allSpace =
     filter === '' &&
@@ -99,6 +116,7 @@ export default function MapBox() {
               carSpace={data.parkingSpace?.availablecar}
               motorSpace={data.parkingSpace?.availablemotor}
               update={data.parkingSpaceUpdate}
+              time={time}
               href={googleDirApiUrl + `${data.area}${data.name}`}
             />
           )}
@@ -134,6 +152,7 @@ export default function MapBox() {
               carSpace={data.parkingSpace?.availablecar}
               motorSpace={data.parkingSpace?.availablemotor}
               update={data.parkingSpaceUpdate}
+              time={time}
               href={googleDirApiUrl + `${data.area}${data.name}`}
             />
           )}
@@ -169,6 +188,7 @@ export default function MapBox() {
               carSpace={data.parkingSpace?.availablecar}
               motorSpace={data.parkingSpace?.availablemotor}
               update={data.parkingSpaceUpdate}
+              time={time}
               href={googleDirApiUrl + `${data.area}${data.name}`}
             />
           )}
@@ -203,10 +223,11 @@ export default function MapBox() {
   // get park api data
   useEffect(() => {
     const fetchData = async () => {
-      await Promise.all([
-        fetch(API_TAIPEI_PARKING_LOT),
-        fetch(API_TAIPEI_PARKING_SPACE),
-      ]).then(async ([res1, res2]) => {
+      try {
+        const [res1, res2] = await Promise.all([
+          fetch(API_TAIPEI_PARKING_LOT),
+          fetch(API_TAIPEI_PARKING_SPACE),
+        ])
         const parkingLot = await res1.json()
         const parkingSpace = await res2.json()
         const result = parkingLot.data.park.map((p: parkData) => {
@@ -219,10 +240,17 @@ export default function MapBox() {
           return data
         })
         return setPark(result)
-      })
+      } catch (err) {
+        return
+      }
     }
+    const id = setInterval(() => {
+      setCount((prevState) => prevState + 1)
+      fetchData()
+    }, 30000)
     fetchData()
-  }, [])
+    return () => clearInterval(id)
+  }, [count])
 
   if (!isLoaded) return <div>Loading...</div>
 

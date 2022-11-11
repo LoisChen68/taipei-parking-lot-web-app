@@ -12,6 +12,7 @@ interface parkProps {
   motorSpace: number
   update: number
   href: string
+  time: number
 }
 
 export default function Card(props: parkProps) {
@@ -32,7 +33,9 @@ export default function Card(props: parkProps) {
           剩餘車位：{props.carSpace}｜剩餘機車位：{props.motorSpace}
         </p>
         <p>收費方式：{props.payex}</p>
-        <p>更新時間：{props.update}</p>
+        <p>
+          更新時間：{props.update}｜更新於： {props.time} 秒前
+        </p>
         <a
           href={props.href}
           target="_blank"
