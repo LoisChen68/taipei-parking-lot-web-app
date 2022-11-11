@@ -8,6 +8,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@openreplay/tracker": "^4.1.6",
     "@reach/combobox": "^0.18.0",
     "@react-google-maps/api": "^2.16.0",
     "@react-google-maps/marker-clusterer": "^2.16.1",
