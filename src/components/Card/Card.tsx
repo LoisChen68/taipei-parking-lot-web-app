@@ -30,11 +30,11 @@ export default function Card(props: parkProps) {
         </h3>
         <p>{props.address}</p>
         <p>
-          剩餘車位：{props.carSpace}｜剩餘機車位：{props.motorSpace}
+          剩餘汽車位：{props.carSpace}｜剩餘機車位：{props.motorSpace}
         </p>
         <p>收費方式：{props.payex}</p>
         <p>
-          更新時間：{props.update}｜更新於： {props.time} 秒前
+          資料更新時間：{props.update}｜自動更新於： {props.time} 秒前
         </p>
         <a
           href={props.href}

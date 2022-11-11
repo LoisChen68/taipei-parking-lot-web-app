@@ -50,6 +50,7 @@ export default function MapBox() {
   const [filter, setFilter] = useState('')
   const [count, setCount] = useState(0)
   const [time, setTime] = useState(0)
+  const [current, setCurrent] = useState('')
   const [activeMarker, setActiveMarker] = useState(null)
   const [park, setPark] = useState([])
   const [libraries] = useState<LoadScriptProps['libraries']>(['places'])
@@ -71,6 +72,25 @@ export default function MapBox() {
     }
     setActiveMarker(marker)
   }
+
+  // currentPark Lot if none alert notify
+  useEffect(() => {
+    const currentPark: any = park?.filter((item: any) => {
+      return item.id.toString() === current.toString()
+    })
+    if (
+      (filter === 'all' &&
+        Number(currentPark[0]?.parkingSpace?.availablecar) < 1 &&
+        Number(currentPark[0]?.parkingSpace?.availablemotor) < 1) ||
+      (filter === 'car' &&
+        Number(currentPark[0]?.parkingSpace?.availablecar) < 1) ||
+      (filter === 'motor' &&
+        Number(currentPark[0]?.parkingSpace?.availablemotor) < 1)
+    ) {
+      alert('您選取的車位無剩餘請重新尋找')
+      setCurrent('')
+    }
+  }, [time])
 
   // timer 0 -> 30s
   useEffect(() => {
@@ -103,6 +123,7 @@ export default function MapBox() {
           label={data.parkingSpace?.availablecar.toString()}
           icon={marker}
           onClick={() => {
+            setCurrent(data.id)
             handleActiveMarker(data.id)
             mapRef.current?.panTo(data.lanLng)
           }}
@@ -113,8 +134,16 @@ export default function MapBox() {
               name={data.name}
               address={data.address}
               payex={data.payex}
-              carSpace={data.parkingSpace?.availablecar}
-              motorSpace={data.parkingSpace?.availablemotor}
+              carSpace={
+                data.parkingSpace?.availablecar < 1
+                  ? 0
+                  : data.parkingSpace?.availablecar
+              }
+              motorSpace={
+                data.parkingSpace?.availablemotor < 1
+                  ? 0
+                  : data.parkingSpace?.availablemotor
+              }
               update={data.parkingSpaceUpdate}
               time={time}
               href={googleDirApiUrl + `${data.area}${data.name}`}
@@ -139,6 +168,7 @@ export default function MapBox() {
           label={data.parkingSpace?.availablecar.toString()}
           icon={marker}
           onClick={() => {
+            setCurrent(data.id)
             handleActiveMarker(data.id)
             mapRef.current?.panTo(data.lanLng)
           }}
@@ -149,8 +179,16 @@ export default function MapBox() {
               name={data.name}
               address={data.address}
               payex={data.payex}
-              carSpace={data.parkingSpace?.availablecar}
-              motorSpace={data.parkingSpace?.availablemotor}
+              carSpace={
+                data.parkingSpace?.availablecar < 1
+                  ? 0
+                  : data.parkingSpace?.availablecar
+              }
+              motorSpace={
+                data.parkingSpace?.availablemotor < 1
+                  ? 0
+                  : data.parkingSpace?.availablemotor
+              }
               update={data.parkingSpaceUpdate}
               time={time}
               href={googleDirApiUrl + `${data.area}${data.name}`}
@@ -175,6 +213,7 @@ export default function MapBox() {
           label={data.parkingSpace?.availablemotor.toString()}
           icon={marker}
           onClick={() => {
+            setCurrent(data.id)
             handleActiveMarker(data.id)
             mapRef.current?.panTo(data.lanLng)
           }}
@@ -185,8 +224,16 @@ export default function MapBox() {
               name={data.name}
               address={data.address}
               payex={data.payex}
-              carSpace={data.parkingSpace?.availablecar}
-              motorSpace={data.parkingSpace?.availablemotor}
+              carSpace={
+                data.parkingSpace?.availablecar < 1
+                  ? 0
+                  : data.parkingSpace?.availablecar
+              }
+              motorSpace={
+                data.parkingSpace?.availablemotor < 1
+                  ? 0
+                  : data.parkingSpace?.availablemotor
+              }
               update={data.parkingSpaceUpdate}
               time={time}
               href={googleDirApiUrl + `${data.area}${data.name}`}
