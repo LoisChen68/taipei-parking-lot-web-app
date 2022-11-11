@@ -1,4 +1,4 @@
-import {screen, render} from '@testing-library/react'
+import { screen, render } from '@testing-library/react'
 import Search from '../components/SearchBar/SearchBar'
 const setPlace = jest.fn()
 

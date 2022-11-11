@@ -1,10 +1,10 @@
-import {screen, render} from '@testing-library/react'
+import { screen, render } from '@testing-library/react'
 import MapBox from '../components/Map/Map'
 import * as ReactGoogleMapApi from '@react-google-maps/api'
-import {mockNavigatorGeolocation} from '../__mock__/mockNavigatorGeolocation'
+import { mockNavigatorGeolocation } from '../__mock__/mockNavigatorGeolocation'
 
 describe('Map', () => {
-  const {getCurrentPositionMock} = mockNavigatorGeolocation();
+  const { getCurrentPositionMock } = mockNavigatorGeolocation()
   getCurrentPositionMock.mockImplementation((success, rejected) =>
     rejected({
       code: '',
@@ -13,7 +13,6 @@ describe('Map', () => {
       POSITION_UNAVAILABLE: '',
       TIMEOUT: '',
     })
-
   )
   test('should shows loader', () => {
     jest.spyOn(ReactGoogleMapApi, 'useJsApiLoader').mockReturnValue({

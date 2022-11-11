@@ -9,15 +9,15 @@ import {
   LoadScriptProps,
   Marker,
 } from '@react-google-maps/api'
-import {useState, useCallback, useMemo, useRef, useEffect} from 'react'
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react'
 import Card from '../Card/Card'
 import positionIcon from '../../assets/position.svg'
 import marker from '../../assets/marker.svg'
-import {twd97_to_latlng} from '../../TWD97'
+import { twd97_to_latlng } from '../../TWD97'
 import SearchBar from '../SearchBar/SearchBar'
 import FilterButton from '../FilterButton/FilterButton'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faCrosshairs} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCrosshairs } from '@fortawesome/free-solid-svg-icons'
 
 type LatLngLiteral = google.maps.LatLngLiteral
 type MapOptions = google.maps.MapOptions
@@ -42,7 +42,7 @@ export default function MapBox() {
     lng: 121.5174062,
   })
   const [zoom] = useState(15)
-  const [position, setPosition] = useState<LatLngLiteral>({lat: 0, lng: 0})
+  const [position, setPosition] = useState<LatLngLiteral>({ lat: 0, lng: 0 })
   const [searchPosition, setSearchPosition] = useState<LatLngLiteral>({
     lat: 0,
     lng: 0,
@@ -175,7 +175,7 @@ export default function MapBox() {
         </Marker>
       ))
 
-  const {isLoaded} = useJsApiLoader({
+  const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY || '',
     libraries,
   })
@@ -210,7 +210,7 @@ export default function MapBox() {
         const parkingLot = await res1.json()
         const parkingSpace = await res2.json()
         const result = parkingLot.data.park.map((p: parkData) => {
-          const {...data} = p
+          const { ...data } = p
           data.lanLng = twd97_to_latlng(p.tw97x, p.tw97y)
           data.parkingSpace = parkingSpace.data.park.find(
             (item: parkItem) => item.id === p.id
@@ -232,7 +232,7 @@ export default function MapBox() {
         <GoogleMap
           center={center}
           zoom={zoom}
-          mapContainerStyle={{width: '100%', height: '100%'}}
+          mapContainerStyle={{ width: '100%', height: '100%' }}
           options={options}
           onLoad={onLoad}
         >
@@ -245,8 +245,11 @@ export default function MapBox() {
             <FontAwesomeIcon
               icon={faCrosshairs}
               className={style.icon}
-              size='xl'
-              onClick={() => {mapRef.current?.panTo(position)}} />
+              size="xl"
+              onClick={() => {
+                mapRef.current?.panTo(position)
+              }}
+            />
           </div>
           {/* user Marker */}
           <Marker position={position} icon={positionIcon} />
