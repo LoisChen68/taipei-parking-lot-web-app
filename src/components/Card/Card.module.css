@@ -2,7 +2,7 @@
   position: fixed;
   bottom: 50px;
   width: 380px;
-  height: 280px;
+  min-height: 280px;
   background-color: white;
   border-radius: 16px;
   left: calc(50vw - 190px);
